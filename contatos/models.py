@@ -4,6 +4,9 @@ from django.utils import timezone
 
 class Categoria(models.Model):
     nome = models.CharField(max_length=255)
+    
+    def __str__(self) -> str:
+        return self.nome
 
 class Contato(models.Model):
     nome = models.CharField(max_length=255)
@@ -15,7 +18,8 @@ class Contato(models.Model):
     categoria = models.ForeignKey(Categoria, on_delete=models.DO_NOTHING)
     
 
-    
+    def __str__(self) -> str:
+        return self.nome
 
     
    
