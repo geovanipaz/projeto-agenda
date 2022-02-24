@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import BooleanField
 from django.utils import timezone
 # Create your models here.
 
@@ -16,7 +17,7 @@ class Contato(models.Model):
     data_criacao = models.DateTimeField(default=timezone.now)
     descricao  = models.TextField(blank=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.DO_NOTHING)
-    
+    mostrar = models.BooleanField(default=True)
 
     def __str__(self) -> str:
         return self.nome
