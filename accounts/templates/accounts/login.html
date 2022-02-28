@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
+{% block 'titulo' %}
+  Login |
+{% endblock 'titulo' %}
 
 {% block 'conteudo' %}
+  {% if not user.is_authenticated %}
   <h1>Login</h1>
   <form method="post" action="{% url 'login' %}">
       {% include "parciais/_messages.html" %}
@@ -20,4 +24,11 @@
     
     <button type="submit" class="btn btn-primary">Logar</button>
   </form>
+  {% else %}
+    <p>
+      Voce esta logado com {{user}}
+      <a href="{% url 'logout' %}">Clique aqui </a> para sair
+    </p>
+  {% endif %}
+  
 {% endblock %}

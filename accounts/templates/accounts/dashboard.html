@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% block 'titulo' %}
+  Dashboard de {{user}} |
+{% endblock 'titulo' %}
 
 {% block 'conteudo' %}
   <h1>Olá {{user.first_name}} {{user.last_name}}</h1>
