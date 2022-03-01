@@ -3,6 +3,7 @@ from django.contrib import messages, auth
 from django.core.validators import validate_email
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from .models import FormContato
 # Create your views here.
 
 def login(request):
@@ -74,4 +75,22 @@ def cadastro(request):
     
 @login_required(redirect_field_name='login')
 def dashboard(request):
-    return render(request, 'accounts/dashboard.html')
+    if request.method != 'POST':
+        form = FormContato()
+        return render(request, 'accounts/dashboard.html', {'form': form})
+    form = FormContato(request.POST, request.FILES)
+    
+    if not form.is_valid():
+        messages.error(request,'Erro ao enviar formulário')
+        form = FormContato(request.POST)
+        return render(request, 'accounts/dashboard.html', {'form': form})
+    
+    nome = request.POST.get('nome')
+    if len(nome) < 3:
+        messages.error(request,'Erro ao enviar formulário')
+        form = FormContato(request.POST)
+        return render(request, 'accounts/dashboard.html', {'form': form})
+    
+    form.save()
+    messages.success(request, f'Contato {request.POST.get("nome")} salvo com sucesso')
+    return redirect('dashboard')

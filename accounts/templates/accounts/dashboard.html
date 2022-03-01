@@ -9,4 +9,17 @@
   <p>
     Seu usuário é {{user}}
   </p>
+  <div class="container">
+    <form action="{% url 'dashboard' %}" method="POST" enctype="multipart/form-data">
+      <table class="table">
+        {{form}}
+        {% csrf_token %}
+        <tr>
+          <td colspan="12">
+            <button type="submit" class="btn btn-primary">Enviar</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
 {% endblock  %}
